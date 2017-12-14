@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "GTimer.h"
 
 
 namespace ggEngine
@@ -37,9 +38,10 @@ namespace ggEngine
 	private:
 		bool runOn = true;
 		int lap = 0;
-		int fps = 60;
+		int fps = 30;
 		const int tickInterval = 1000 / fps;
 		Player* player;
+		GTimer timer;
 		std::vector<Enemy*> enemies;
 		std::vector<Component*> comp;
 		std::vector<Bullet*> bullets;

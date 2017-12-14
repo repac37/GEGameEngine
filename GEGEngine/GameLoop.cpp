@@ -28,46 +28,61 @@ namespace ggEngine
 	{
 		while (SDL_PollEvent(&e))
 		{
-			const Uint8 *state = SDL_GetKeyboardState(NULL);
+				const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-			if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
-				move(5, -5);
+				if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
+					move(5, -5);
+				}
+				else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
+					move(5, 5);
+				}
+				else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
+					move(-5, -5);
+				}
+				else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
+					move(-5, 5);
+				}
+				else if (state[SDL_SCANCODE_LEFT]) {
+					move(-5, 0);
+				}
+				else if (state[SDL_SCANCODE_RIGHT]) {
+					move(5, 0);
+				}
+				else if (state[SDL_SCANCODE_UP]) {
+					move(0, -5);
+				}
+				else if (state[SDL_SCANCODE_DOWN]) {
+					move(0, 5);
+				}
+				else if (state[SDL_SCANCODE_SPACE])
+				{
+					shoot(1);
+				}
+				
+				if (state[SDL_SCANCODE_ESCAPE])
+				{
+					SDL_Quit();
+				}
+				switch (e.type)
+				{
+				case SDL_KEYDOWN:
+					if (state[SDL_SCANCODE_P]) {
+						if (timer.isPaused())
+						{
+							timer.unpause();
+							printf("START\n");
+						}
+						else {
+							timer.pause();
+							printf("PAUSE\n");
+						}
+					}
+						break;
+				case SDL_QUIT:
+					SDL_Quit();
+					break;
+				}
 			}
-			else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
-				move(5, 5);
-			}
-			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
-				move(-5, -5);
-			}
-			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
-				move(-5, 5);
-			}
-			else if (state[SDL_SCANCODE_LEFT]) {
-				move(-5, 0);
-			}
-			else if (state[SDL_SCANCODE_RIGHT]) {
-				move(5, 0);
-			}
-			else if (state[SDL_SCANCODE_UP]) {
-				move(0, -5);
-			}
-			else if (state[SDL_SCANCODE_DOWN]) {
-				move(0, 5);
-			}
-			else if (state[SDL_SCANCODE_SPACE])
-			{
-				shoot(1);
-			}
-			if (state[SDL_SCANCODE_ESCAPE])
-			{
-				SDL_Quit();
-			}
-			switch (e.type)
-			{
-			case SDL_QUIT:
-				SDL_Quit();
-			}
-		}
 	}
 	
 	void GameLoop::move(int x, int y)
@@ -133,24 +148,26 @@ namespace ggEngine
 		bool quit = false;
 		SDL_Event e;
 		
-		Uint32 startTime = SDL_GetTicks();
-		
+		//Uint32 startTime = SDL_GetTicks();
+
+		timer.start();
+
 		while (!quit)
 		{
-			Uint32 nextTick = SDL_GetTicks() + tickInterval;
+			Uint32 nextTick = timer.getTicks() + tickInterval;
 
-
+			
 			InputHandler(e);
 
 			Update();
 
 			Draw();
 
-			int delay = nextTick - SDL_GetTicks();
+			int delay = nextTick - timer.getTicks();
 			if (delay > 0) {
 				SDL_Delay(delay);
-
 			}
+			printf("time: %d\n", timer.getTicks());
 		}
 	}
 
