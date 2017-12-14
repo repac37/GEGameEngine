@@ -7,7 +7,7 @@ namespace ggEngine
 	{
 		enemies.push_back(e);
 	}
-	
+
 	void GameLoop::addComponent(Component* c)
 	{
 		comp.push_back(c);
@@ -23,73 +23,78 @@ namespace ggEngine
 			bullets.push_back(b);
 		}
 	}
-	
+
 	void GameLoop::InputHandler(SDL_Event &e)
 	{
 		while (SDL_PollEvent(&e))
 		{
-				const Uint8 *state = SDL_GetKeyboardState(NULL);
+			const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-				if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
-					move(5, -5);
-				}
-				else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
-					move(5, 5);
-				}
-				else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
-					move(-5, -5);
-				}
-				else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
-					move(-5, 5);
-				}
-				else if (state[SDL_SCANCODE_LEFT]) {
-					move(-5, 0);
-				}
-				else if (state[SDL_SCANCODE_RIGHT]) {
-					move(5, 0);
-				}
-				else if (state[SDL_SCANCODE_UP]) {
-					move(0, -5);
-				}
-				else if (state[SDL_SCANCODE_DOWN]) {
-					move(0, 5);
-				}
-				else if (state[SDL_SCANCODE_SPACE])
-				{
-					shoot(1);
-				}
-				
-				if (state[SDL_SCANCODE_ESCAPE])
-				{
-					SDL_Quit();
-				}
-				switch (e.type)
-				{
-				case SDL_KEYDOWN:
-					if (state[SDL_SCANCODE_P]) {
-						if (timer.isPaused())
-						{
-							timer.unpause();
-							printf("START\n");
-						}
-						else {
-							timer.pause();
-							printf("PAUSE\n");
-						}
-					}
-						break;
-				case SDL_QUIT:
-					SDL_Quit();
-					break;
-				}
+			if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
+				move(2, -2);
 			}
+			else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
+				move(2, 2);
+			}
+			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
+				move(-2, -2);
+			}
+			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
+				move(-2, 2);
+			}
+			else if (state[SDL_SCANCODE_LEFT]) {
+				move(-2, 0);
+			}
+			else if (state[SDL_SCANCODE_RIGHT]) {
+				move(2, 0);
+			}
+			else if (state[SDL_SCANCODE_UP]) {
+				move(0, -2);
+			}
+			else if (state[SDL_SCANCODE_DOWN]) {
+				move(0, 2);
+			}
+
+			if (state[SDL_SCANCODE_SPACE])
+			{
+				shoot(1);
+			}
+
+			if (state[SDL_SCANCODE_ESCAPE])
+			{
+				SDL_Quit();
+			}
+
+			switch (e.type)
+			{
+			case SDL_KEYDOWN:
+				if (state[SDL_SCANCODE_P]) {
+					if (timer.isPaused())
+					{
+						timer.unpause();
+						printf("START\n");
+					}
+					else {
+						timer.pause();
+						printf("PAUSE\n");
+					}
+				}
+				break;
+			case SDL_QUIT:
+				SDL_Quit();
+				break;
+			}
+
+		}
 	}
-	
+
 	void GameLoop::move(int x, int y)
 	{
-			player->setRect(x, y);
-	}
+		player->setRect(x, y);
+		geo->moveVel(x, y);
 	
+	}
+
 	void GameLoop::shoot(int x)
 	{
 		for (int i = 0; i < bullets.size(); i++)
@@ -105,7 +110,7 @@ namespace ggEngine
 			return e->getRect();
 		}
 	}
-	
+
 	void GameLoop::checkCollision(const Enemy &enemie)
 	{
 		bool hit = false;
@@ -142,12 +147,12 @@ namespace ggEngine
 			player->~Player();
 		}
 	}
-	
+
 	void GameLoop::run()
 	{
 		bool quit = false;
 		SDL_Event e;
-		
+
 		//Uint32 startTime = SDL_GetTicks();
 
 		timer.start();
@@ -156,7 +161,7 @@ namespace ggEngine
 		{
 			Uint32 nextTick = timer.getTicks() + tickInterval;
 
-			
+
 			InputHandler(e);
 
 			Update();
@@ -167,7 +172,7 @@ namespace ggEngine
 			if (delay > 0) {
 				SDL_Delay(delay);
 			}
-			printf("time: %d\n", timer.getTicks());
+		/*	printf("time: %d\n", timer.getTicks());*/
 		}
 	}
 
@@ -188,29 +193,28 @@ namespace ggEngine
 		{
 			c->draw();
 		}
+		geo->draw();
 		SDL_RenderPresent(core.get_ren());
 	}
 
-	GameLoop::GameLoop()
-	{
-		InitGame();
-
-		run();
-	}
-
-	void GameLoop::InitGame()
+	void GameLoop::initGame()
 	{
 		player = new Player(100, 100, 120, 120, "assets/spacePlane.png");
 		Enemy *e1 = new Enemy(400, 200, 120, 120, "assets/ufo.png");
 		Enemy *e2 = new Enemy(800, 100, 120, 120, "assets/ufo.png");
+		geo = new Geometry(300, 300, 50, 50);
 		addComponent(player);
 		addComponent(e1);
 		addComponent(e2);
 		addEnemy(e1);
 		addEnemy(e2);
 	}
-	
-	GameLoop::~GameLoop()
-	{
+
+	GameLoop::GameLoop() {
+		initGame();
+		run();
 	}
+
+	GameLoop::~GameLoop() {}
 }
+

@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include "GTimer.h"
+#include "Geometry.h"
 
 
 namespace ggEngine
@@ -15,8 +16,7 @@ namespace ggEngine
 	public:
 		~GameLoop();
 		GameLoop();
-		void InitGame();
-		void addPlayer(Player* p);
+		void initGame();
 		void addEnemy(Enemy* e);
 		void addComponent(Component* c);
 		void addBullets(Bullet* b);
@@ -34,11 +34,13 @@ namespace ggEngine
 		
 		void checkCollision(const Enemy &enemie);
 		SDL_Rect getEnemyRect();
+		
 
 	private:
+		Geometry* geo;
 		bool runOn = true;
 		int lap = 0;
-		int fps = 30;
+		int fps = 60;
 		const int tickInterval = 1000 / fps;
 		Player* player;
 		GTimer timer;

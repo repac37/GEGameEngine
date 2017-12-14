@@ -21,9 +21,6 @@ namespace ggEngine
 		bool isStarted();
 		bool isPaused();
 
-	protected:
-
-
 	private:
 
 		Uint32 mStartTicks;

@@ -11,7 +11,9 @@ namespace ggEngine
 
 	Component::~Component()
 	{
+		puts("you gone in component ");
 		SDL_DestroyTexture(_texture);
+		
 	}
 
 	void Component::draw()

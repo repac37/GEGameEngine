@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Component_H">
       <UniqueIdentifier>{1b44b679-9da2-4128-9e38-3e0059580702}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Geometry">
+      <UniqueIdentifier>{01989ac3-bb57-4eae-aca7-c0a9a0a92c53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Geometry_H">
+      <UniqueIdentifier>{43db7d84-c7fc-4083-a274-d4d03aafe84c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -54,6 +60,9 @@
     <ClCompile Include="GTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -82,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="GTimer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files\Geometry_H</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

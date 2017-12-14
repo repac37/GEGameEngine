@@ -6,12 +6,13 @@ namespace ggEngine
 
 	Core::Core()
 	{
+
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 			printf("SDL_Init-fel: %c\n", SDL_GetError());
 			setInitComplete(false);
 			SDL_Quit();
 		}
-		win = SDL_CreateWindow("My Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+		win = SDL_CreateWindow("My Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winSize.x, winSize.y, SDL_WINDOW_SHOWN);
 		if (win == nullptr) {
 			printf("SDL_Init-fel: %c\n", SDL_GetError());
 			setInitComplete(false);

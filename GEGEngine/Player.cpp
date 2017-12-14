@@ -11,6 +11,7 @@ namespace ggEngine
 
 	Player::~Player()
 	{
+		puts("you dead in Play");
 	}
 
 	void Player::setRect(int x, int y)
