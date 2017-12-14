@@ -13,12 +13,18 @@ namespace ggEngine
 	{
 	public:
 		~GameLoop();
+		GameLoop();
+		void InitGame();
 		void addPlayer(Player* p);
 		void addEnemy(Enemy* e);
 		void addComponent(Component* c);
 		void addBullets(Bullet* b);
 		void loopComponent();
 		void run();
+
+		void Update();
+
+		void Draw();
 
 		void InputHandler(SDL_Event &e);
 

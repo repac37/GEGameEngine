@@ -9,10 +9,9 @@ using namespace ggEngine;
 
 int main(int argc, char** argv)
 {
-	GameLoop loop;
 	if (core.getInitComplete());
 	{
-		loop.run();		
+		GameLoop loop;
 	}
 
 	return 0;

@@ -31,28 +31,28 @@ namespace ggEngine
 			const Uint8 *state = SDL_GetKeyboardState(NULL);
 
 			if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
-				move(2, -2);
+				move(5, -5);
 			}
 			else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
-				move(2, 2);
+				move(5, 5);
 			}
 			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
-				move(-2, -2);
+				move(-5, -5);
 			}
 			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
-				move(-2, 2);
+				move(-5, 5);
 			}
 			else if (state[SDL_SCANCODE_LEFT]) {
-				move(-2, 0);
+				move(-5, 0);
 			}
 			else if (state[SDL_SCANCODE_RIGHT]) {
-				move(2, 0);
+				move(5, 0);
 			}
 			else if (state[SDL_SCANCODE_UP]) {
-				move(0, -2);
+				move(0, -5);
 			}
 			else if (state[SDL_SCANCODE_DOWN]) {
-				move(0, 2);
+				move(0, 5);
 			}
 			else if (state[SDL_SCANCODE_SPACE])
 			{
@@ -132,6 +132,57 @@ namespace ggEngine
 	{
 		bool quit = false;
 		SDL_Event e;
+		
+		Uint32 startTime = SDL_GetTicks();
+		
+		while (!quit)
+		{
+			Uint32 nextTick = SDL_GetTicks() + tickInterval;
+
+
+			InputHandler(e);
+
+			Update();
+
+			Draw();
+
+			int delay = nextTick - SDL_GetTicks();
+			if (delay > 0) {
+				SDL_Delay(delay);
+
+			}
+		}
+	}
+
+	void GameLoop::Update()
+	{
+		for (Enemy *e : enemies)
+		{
+			e->setRect(1, 0);
+			checkCollision(*e);
+		}
+	}
+
+	void GameLoop::Draw()
+	{
+		SDL_SetRenderDrawColor(core.get_ren(), 0, 0, 200, 255);
+		SDL_RenderClear(core.get_ren());
+		for (Component *c : comp)
+		{
+			c->draw();
+		}
+		SDL_RenderPresent(core.get_ren());
+	}
+
+	GameLoop::GameLoop()
+	{
+		InitGame();
+
+		run();
+	}
+
+	void GameLoop::InitGame()
+	{
 		player = new Player(100, 100, 120, 120, "assets/spacePlane.png");
 		Enemy *e1 = new Enemy(400, 200, 120, 120, "assets/ufo.png");
 		Enemy *e2 = new Enemy(800, 100, 120, 120, "assets/ufo.png");
@@ -140,37 +191,6 @@ namespace ggEngine
 		addComponent(e2);
 		addEnemy(e1);
 		addEnemy(e2);
-
-		while (!quit)
-		{
-			Uint32 nextTick = SDL_GetTicks() + tickInterval;
-			++lap;
-
-			InputHandler(e);
-			for (Enemy *e : enemies)
-			{
-				e->setRect(1, 0);
-			}
-			
-			for(Enemy* e : enemies)
-				checkCollision(*e);
-			
-			SDL_SetRenderDrawColor(core.get_ren(), 0, 0, 200, 255);
-			SDL_RenderClear(core.get_ren());
-			for (Component *c : comp)
-			{
-				c->draw();
-			}
-			SDL_RenderPresent(core.get_ren());
-			int delay = nextTick - SDL_GetTicks();
-			if (delay > 0) {
-				SDL_Delay(delay);
-
-			}
-			//printf("Antal varv %d\n", lap);
-
-		}
-		
 	}
 	
 	GameLoop::~GameLoop()
