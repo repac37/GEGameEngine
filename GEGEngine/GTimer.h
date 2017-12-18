@@ -25,6 +25,9 @@ namespace ggEngine
 
 		Uint32 mStartTicks;
 		Uint32 mPausedTicks;
+		const int fps = 60;
+		const int tickInterval = 1000 / fps;
+
 
 		bool mPaused;
 		bool mStarted;

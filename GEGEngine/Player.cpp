@@ -3,7 +3,7 @@
 
 namespace ggEngine
 {
-	Player::Player(int x, int y, int w, int h, std::string path) : MovableGameObject(x, y, w, h)
+	Player::Player(int x, int y, int w, int h, std::string path) : MovableGameObject(x, y, w, h), _name("Player")
 	{
 		_texture = Sprite(path).get_texture();
 	}
@@ -18,6 +18,48 @@ namespace ggEngine
 	{
 		this->rect.x += x;
 		this->rect.y += y;
+	}
+
+	void Player::moveSpeed(int x, int y)
+	{
+		if (x > 0) {
+			this->velocityX += GEO_VEL;
+		}
+		if (x < 0) {
+			this->velocityX -= GEO_VEL;
+		}
+		if (y > 0) {
+			this->velocityY += GEO_VEL;
+		}
+		if (y < 0) {
+			this->velocityY -= GEO_VEL;
+		}
+		move();
+		this->velocityX = this->velocityY = 0;
+
+	}
+
+	void Player::move()
+	{
+		//Move the dot left or right
+		rect.x += velocityX;
+
+		//If the dot went too far to the left or right
+		if ((rect.x < 0) || (rect.x + rect.w > core.getWinWidth()))
+		{
+			//Move back
+			rect.x -= velocityX;
+		}
+
+		//Move the dot up or down
+		rect.y += velocityY;
+
+		//If the dot went too far up or down
+		if ((rect.y < 0) || (rect.y + rect.h >  core.getWinHeight()))
+		{
+			//Move back
+			rect.y -= velocityY;
+		}
 	}
 }
 

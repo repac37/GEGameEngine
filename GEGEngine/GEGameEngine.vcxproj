@@ -124,12 +124,12 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ControlHandler.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GTimer.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovableGameObject.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -143,6 +143,7 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GTimer.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="MovableGameObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteManager.h" />

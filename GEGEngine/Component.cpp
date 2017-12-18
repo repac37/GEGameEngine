@@ -5,15 +5,19 @@
 namespace ggEngine
 {
 
-	Component::Component(int x, int y, int w, int h) :rect { x, y, w, h }
+	Component::Component(int x, int y, int w, int h) :rect{x,y,w,h}
 	{
+		posX = x; 
+		posY = y;
+		width=w; 
+		height=h;
+		velocityX = 0;
+		velocityY = 0;
 	}
 
 	Component::~Component()
 	{
-		puts("you gone in component ");
 		SDL_DestroyTexture(_texture);
-		
 	}
 
 	void Component::draw()

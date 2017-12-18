@@ -1,8 +1,11 @@
 #include "GameLoop.h"
 #include <iostream>
+#include <string>
 
 namespace ggEngine
 {
+	SDL_Event GameLoop::event;
+
 	void GameLoop::addEnemy(Enemy* e)
 	{
 		enemies.push_back(e);
@@ -24,37 +27,36 @@ namespace ggEngine
 		}
 	}
 
-	void GameLoop::InputHandler(SDL_Event &e)
+	void GameLoop::InputHandler()
 	{
-		while (SDL_PollEvent(&e))
+		while (SDL_PollEvent(&event))
 		{
 			const Uint8 *state = SDL_GetKeyboardState(NULL);
 
 			if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
 				move(2, -2);
 			}
-			else if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
+			if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_DOWN]) {
 				move(2, 2);
 			}
-			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
+			if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_UP]) {
 				move(-2, -2);
 			}
-			else if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
+			if (state[SDL_SCANCODE_LEFT] && state[SDL_SCANCODE_DOWN]) {
 				move(-2, 2);
 			}
-			else if (state[SDL_SCANCODE_LEFT]) {
+			if (state[SDL_SCANCODE_LEFT]) {
 				move(-2, 0);
 			}
-			else if (state[SDL_SCANCODE_RIGHT]) {
+			if (state[SDL_SCANCODE_RIGHT]) {
 				move(2, 0);
 			}
-			else if (state[SDL_SCANCODE_UP]) {
+			if (state[SDL_SCANCODE_UP]) {
 				move(0, -2);
 			}
-			else if (state[SDL_SCANCODE_DOWN]) {
+			if (state[SDL_SCANCODE_DOWN]) {
 				move(0, 2);
 			}
-
 			if (state[SDL_SCANCODE_SPACE])
 			{
 				shoot(1);
@@ -65,7 +67,7 @@ namespace ggEngine
 				SDL_Quit();
 			}
 
-			switch (e.type)
+			switch (event.type)
 			{
 			case SDL_KEYDOWN:
 				if (state[SDL_SCANCODE_P]) {
@@ -90,8 +92,8 @@ namespace ggEngine
 
 	void GameLoop::move(int x, int y)
 	{
-		player->setRect(x, y);
-		geo->moveVel(x, y);
+		player->moveSpeed(x, y);
+		//geo->moveVel(x, y);
 	
 	}
 
@@ -143,7 +145,6 @@ namespace ggEngine
 
 		}
 		if (hit) {
-			printf("träff");
 			player->~Player();
 		}
 	}
@@ -151,7 +152,7 @@ namespace ggEngine
 	void GameLoop::run()
 	{
 		bool quit = false;
-		SDL_Event e;
+
 
 		//Uint32 startTime = SDL_GetTicks();
 
@@ -159,10 +160,9 @@ namespace ggEngine
 
 		while (!quit)
 		{
-			Uint32 nextTick = timer.getTicks() + tickInterval;
+			Uint32 nextTick = timer.getTicks();
 
-
-			InputHandler(e);
+			InputHandler();
 
 			Update();
 
@@ -172,7 +172,7 @@ namespace ggEngine
 			if (delay > 0) {
 				SDL_Delay(delay);
 			}
-		/*	printf("time: %d\n", timer.getTicks());*/
+		//printf("time: %d\n", timer.getTicks());
 		}
 	}
 
@@ -193,7 +193,6 @@ namespace ggEngine
 		{
 			c->draw();
 		}
-		geo->draw();
 		SDL_RenderPresent(core.get_ren());
 	}
 
@@ -202,7 +201,6 @@ namespace ggEngine
 		player = new Player(100, 100, 120, 120, "assets/spacePlane.png");
 		Enemy *e1 = new Enemy(400, 200, 120, 120, "assets/ufo.png");
 		Enemy *e2 = new Enemy(800, 100, 120, 120, "assets/ufo.png");
-		geo = new Geometry(300, 300, 50, 50);
 		addComponent(player);
 		addComponent(e1);
 		addComponent(e2);

@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "GTimer.h"
 #include "Geometry.h"
+#include "InputHandler.h"
 
 
 namespace ggEngine
@@ -27,21 +28,18 @@ namespace ggEngine
 
 		void Draw();
 
-		void InputHandler(SDL_Event &e);
+		void InputHandler();
 
 		void move(int x, int y);
 		void shoot(int x);
 		
 		void checkCollision(const Enemy &enemie);
 		SDL_Rect getEnemyRect();
-		
+		static SDL_Event event;
 
 	private:
-		Geometry* geo;
 		bool runOn = true;
 		int lap = 0;
-		int fps = 60;
-		const int tickInterval = 1000 / fps;
 		Player* player;
 		GTimer timer;
 		std::vector<Enemy*> enemies;

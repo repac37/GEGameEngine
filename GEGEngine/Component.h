@@ -20,12 +20,10 @@ namespace ggEngine
 		void setTex() { _texture = nullptr; };
 
 	protected:
-
+		int posX, posY, width, height, velocityX, velocityY;
 		Component(int x, int y, int w, int h);
 		SDL_Rect rect;
 		SDL_Texture *_texture = nullptr;
-
-
 
 	private:
 		

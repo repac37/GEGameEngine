@@ -67,7 +67,7 @@ namespace ggEngine
 			}
 			else
 			{
-				time = SDL_GetTicks() - mStartTicks;
+				time = SDL_GetTicks()+tickInterval - mStartTicks;
 			}
 		}
 

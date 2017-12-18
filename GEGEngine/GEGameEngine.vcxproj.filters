@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Geometry_H">
       <UniqueIdentifier>{43db7d84-c7fc-4083-a274-d4d03aafe84c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Command">
+      <UniqueIdentifier>{1916d83d-4a6c-489f-9570-92d6343a1598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Command_H">
+      <UniqueIdentifier>{f378df55-bfd5-4c21-b4bf-3dcef45c0a28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -48,12 +54,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
-    <ClCompile Include="ControlHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
@@ -62,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="Geometry.cpp">
       <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>Header Files\Geometry_H</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Header Files\Command_H</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
