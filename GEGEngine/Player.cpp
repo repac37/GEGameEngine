@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <string>
+#include "GameLoop.h"
 
 namespace ggEngine
 {
@@ -39,6 +40,35 @@ namespace ggEngine
 
 	}
 
+	void Player::moveForward()
+	{
+		this->velocityX += GEO_VEL*GameLoop::timer.deltaTime;
+		move();
+	}
+
+	void Player::moveBackward()
+	{
+		this->velocityX -= GEO_VEL*GameLoop::timer.deltaTime;
+		move();
+	}
+
+	void Player::moveUp()
+	{
+		this->velocityY -= GEO_VEL*GameLoop::timer.deltaTime;
+		move();
+	}
+
+	void Player::moveDown()
+	{
+		this->velocityY += GEO_VEL*GameLoop::timer.deltaTime;
+		move();
+	}
+
+	void Player::shoot()
+	{
+		printf("shoot");
+	}
+
 	void Player::move()
 	{
 		//Move the dot left or right
@@ -60,6 +90,8 @@ namespace ggEngine
 			//Move back
 			rect.y -= velocityY;
 		}
+		
+		velocityY = velocityX = 0;
 	}
 }
 

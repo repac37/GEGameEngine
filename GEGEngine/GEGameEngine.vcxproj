@@ -131,6 +131,7 @@
     <ClCompile Include="GTimer.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ManagementComponent.cpp" />
     <ClCompile Include="MovableGameObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GTimer.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="ManagementComponent.h" />
     <ClInclude Include="MovableGameObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteManager.h" />

@@ -16,10 +16,18 @@ namespace ggEngine
 		std::string getName() const { return _name; }
 		inline void move();
 		void moveSpeed(int x, int y);
+		
+
+		void moveForward();
+		void moveBackward();
+		void moveUp();
+		void moveDown();
+		void shoot();
+
 	
 	private:
 		//Maximum axis velocity of the dot
-		static const int GEO_VEL = 10;
+		static const int GEO_VEL = 800;
 		std::string _name;
 	};
 }
