@@ -9,9 +9,17 @@ namespace ggEngine
 	class Bullet : public MovableGameObject
 	{
 	public:
+
 		Bullet(int x, int y, int w, int h, std::string path);
 		~Bullet();
-		void setRect(int x);
+		void FireBullet(int x, int y);
+		void Move();
+
+	private:
+
+		int mVelX;
+		const int BULLET_VET = 1000;
+
 	};
 }
 #endif

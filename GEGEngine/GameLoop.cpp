@@ -1,7 +1,6 @@
 #include "GameLoop.h"
 #include <iostream>
 #include <string>
-#include "Enemy.h"
 
 namespace ggEngine
 {
@@ -55,7 +54,7 @@ namespace ggEngine
 			case SDL_KEYDOWN:
 				if (state[SDL_SCANCODE_SPACE])
 				{
-					mc.player->shoot();
+					mc.shoot();
 				}
 				if (state[SDL_SCANCODE_P]) {
 					if (timer.isPaused())
@@ -73,7 +72,6 @@ namespace ggEngine
 				SDL_Quit();
 				break;
 			}
-
 		}
 	}
 
@@ -150,10 +148,7 @@ namespace ggEngine
 			int delay = next_tick - timer.getTicks();
 			if (delay > 0) {
 				SDL_Delay(delay);
-			}
-			
-			
-			
+			}	
 		}
 	}
 
@@ -163,8 +158,11 @@ namespace ggEngine
 		{
 			if (typeid(*e) == typeid(Enemy))
 				e->move();
-
-			//checkCollision(*e);
+				//checkCollision(*e);
+		}
+		for (Bullet *b : mc.bulletsInGame)
+		{
+			b->Move();
 		}
 	}
 

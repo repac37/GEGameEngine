@@ -1,5 +1,5 @@
 #include "Bullet.h"
-
+#include "GameLoop.h"
 
 namespace ggEngine
 {
@@ -13,11 +13,18 @@ namespace ggEngine
 	{
 	}
 
-	void Bullet::setRect(int x)
+	void Bullet::FireBullet(int x, int y)
 	{
-		for (int i = 0; i < 25; i++)
-		{
-			this->rect.x += x;
-		}
+		this->rect.x = x;
+		this->rect.y = y;
+	}
+
+	void Bullet::Move()
+	{
+		velocityX += (int)BULLET_VET*GameLoop::timer.deltaTime;
+
+		rect.x += velocityX;
+
+		velocityX = 0;
 	}
 }

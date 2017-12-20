@@ -12,7 +12,7 @@ namespace ggEngine
 
 	Player::~Player()
 	{
-		puts("you dead in Play");
+		puts("you died in Play");
 	}
 
 	void Player::setRect(int x, int y)

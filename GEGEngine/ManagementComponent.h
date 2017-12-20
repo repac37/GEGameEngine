@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Component.h"
+#include "Bullet.h"
 
 namespace ggEngine {
 
@@ -13,16 +14,22 @@ namespace ggEngine {
 	
 		//Player firstPlayer;		
 		void initEnemy();
-		void addEnemyToGame();
-		
+		void addObjectsToGame();
+		void initBullet();
+
+		int bulletNumber = 0;
 
 	public:
 		Player* player;
 		std::vector<Enemy*> initEnemies;
+		std::vector<Bullet*> initBullets;
 		std::vector<Enemy*> enenmiesInGame;
+		std::vector<Bullet*> bulletsInGame;
 		std::vector<Component*> GameObjects;
 		ManagementComponent();
 		~ManagementComponent();
+		void shoot();
+
 	};
 
 }

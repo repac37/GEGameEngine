@@ -12,7 +12,15 @@ namespace ggEngine {
 		}
 	}
 
-	void ManagementComponent::addEnemyToGame()
+	void ManagementComponent::initBullet()
+	{
+		for (int i = 0; i < 10; ++i) {
+			Bullet* b = new Bullet(100, 100, 25, 25, "assets/bullet.png");
+			initBullets.push_back(b);
+		}
+	}
+
+	void ManagementComponent::addObjectsToGame()
 	{
 		GameObjects.push_back(player);
 		enenmiesInGame.push_back(initEnemies.at(2));
@@ -21,11 +29,32 @@ namespace ggEngine {
 		GameObjects.push_back(initEnemies[3]);
 	}
 
+	void ManagementComponent::shoot()
+	{
+		initBullets[bulletNumber]->FireBullet(player->getRect().x + 111, player->getRect().y + 55);
+		GameObjects.push_back(initBullets[bulletNumber]);
+		bulletsInGame.push_back(initBullets[bulletNumber]);
+		if (bulletNumber > 9)
+		{
+			bulletNumber = 0;
+			bulletsInGame.clear();
+			for (Bullet *e : GameObjects)
+			{
+				if (typeid(*e) == typeid(Bullet))
+				
+			}
+		}
+		else {
+			bulletNumber++;
+		}
+	}
+
 	ManagementComponent::ManagementComponent()
 	{
 		initEnemy();
+		initBullet();
 		player = new Player(100, 100, 120, 120, "assets/spacePlane.png");
-		addEnemyToGame();
+		addObjectsToGame();
 	}
 
 
